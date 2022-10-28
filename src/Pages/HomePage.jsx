@@ -1,22 +1,18 @@
-import { ThemeProvider } from "styled-components";
-import Footer from '../Components/Footer';
-import TypingBox from '../Components/TypingBox';
-import  GlobalStyles  from '../styles/global';
-import Header from "../Components/Header";
-import { useTheme } from '../Context/ThemeContext';
 import React from 'react'
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import TypingBox from '../components/TypingBox';
+import { GlobalStyles } from '../styles/global';
 
-const HomePage = () => {
-    const {theme} = useTheme();
+function HomePage() {
+
   return (
-    <ThemeProvider theme={theme}>
       <div className="canvas">
-          <GlobalStyles/>
-          <Header/>
-          <TypingBox/>
-          <Footer/>
-        </div>
-      </ThemeProvider>
+        <GlobalStyles/>
+        <Header/>
+        <TypingBox/>
+        <Footer/>
+      </div>
   )
 }
 

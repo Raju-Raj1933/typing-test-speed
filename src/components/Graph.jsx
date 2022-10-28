@@ -21,20 +21,23 @@ ChartJS.register(
     Legend
 );
 
-const Graph = ({graphData}) => {
+const Graph = ({graphData, type}) => {
+
     const {theme} = useTheme();
+
   return (
     <div>
         <Line 
 
         data={
             {
-                labels: graphData.map(i=>i[0]+1)   ,
+                labels: graphData.map(i=>(type==='date')?(""):(i[0]+1))   ,
                 datasets: [
                     {
                         data: graphData.map(i=>i[1]),
                         label: "wpm",
                         borderColor: theme.stats
+
                     }
                 ]
             }

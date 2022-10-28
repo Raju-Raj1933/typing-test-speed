@@ -5,15 +5,14 @@ const darkTheme = {
     typeBoxText:"red",
     stats:"purple"
 
-
-}
-
-const lightTheme = {
+  }
+  
+  const lightTheme = {
     label:"Light",
-    background: "white",
-    color: "black"
-}
-const redTheme = {
+      background: "white",
+      color: "black"
+  }
+  const redTheme = {
     label:"Red",
     background: "red",
     color:"blue"
@@ -27,11 +26,25 @@ const bentoTheme = {
     stats: "#FF7A90"
 }
 
+const futureFunkTheme = {
+  label: "Future Funk",
+  background: "#2E1A47",
+  title: "#fff",
+  typeBoxText: "#C18FFF",
+  stats: "#fff"
+}
 
-export const themeOptions = [
-    {value: darkTheme, label:"Dark"},
-    {value: lightTheme, label: "Light"}
-    {value: redTheme, label:"Red Theme"},
-    {value: bentoTheme, label: "Bento"}
 
-];
+
+  
+  export const themeOptions = [
+      {value: darkTheme, label:"Dark"},
+      {value: lightTheme, label: "Light"},
+      {value: redTheme, label:"Red Theme"},
+      {value: bentoTheme, label: "Bento"},
+      {value: futureFunkTheme, label: "Future Funk"}
+
+  
+  ];
+  
+  

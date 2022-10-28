@@ -5,50 +5,125 @@ import { AppBar, Modal, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
-import { makeStyles } from '@material-ui/core';
+import { Box, makeStyles, useTheme } from '@material-ui/core';
 import { auth } from '../firebaseConfig';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import GoogleButton from 'react-google-button';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useAlert } from '../Context/AlertContext';
 
 
-const AccountIcon = () => {
 
+const useStyles = makeStyles(() => ({
+
+      modal: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: "center",
+            backdropFilter: "blur(2px)"
+
+
+        },
+        box: {
+            width: 400,
+            alignItems: 'center'
+
+        }
+    
+}));
+
+
+
+  
+function AccountIcon() {
 
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(0);
+      const [value, setValue] = useState(0);
+        const {setAlert} =useAlert(0);
 
-    const navigate = useNavigate();
+      const navigate = useNavigate();
+        const googleProvider = new GoogleAuthProvider();
 
-    const [user] = useAuthState(auth);
+      const signInWithGoogle = () =>{
+            signInWithPopup (auth, googleProvider).then((res)=>{ 
+              setAlert({
+                  open: true,
+                  type: 'success',
+                  message: 'Logged in'
+              });
+              setTimeout(()=>{
+                  setAlert({
+                      open:false,
+                      type: "",
+                      message: ""
+                  })
+              },2000);
+              handleClose();
+          }).catch((err)=>{
+              setAlert({
+                  open: true,
+                  type: 'error',
+                  message: 'not able to use google auth'
+              });
+              setTimeout(()=>{
+                  setAlert({
+                      open:false,
+                      type: "",
+                      message: ""
+                  })
+              },2000);
+          });
+      }
+  
+     const  [user] = useAuthState(auth);
 
-    const handleClose = () => {
-        setOpen(false);
-    }
 
-    const handleChange = (e, v) => {
-        setValue(v);
-    }
-
-    const logout = () => {
-        auth.signOut();
-    }
-
-    const handleAccountClick = () => {
-        if (user) {
-            navigate('/user');
+      const handleClose = () => {
+            setOpen(false);
         }
-        else {
-            setOpen(true)
+
+        const handleChange = (e, v) => {
+            setValue(v);
         }
-    }
+    
 
-    const classes = useStyles();
+      const logout = () => {
+        auth.signOut().then((okk)=>{
+            setAlert({
+                open: true,
+                type: 'success',
+                message: 'logged out!'
+            });
+            setTimeout(()=>{
+                setAlert({
+                    open:false,
+                    type: "",
+                    message: ""
+                })
+            },2000);
+        });
+     }
 
-    return (
-        <div>
-            <AccountCircleIcon onClick={handleAccountClick} />
-            {user && <LogoutIcon onClick={logout} />}
-            <Modal
+        
+        const handleAccountClick = () => {
+            if (user) {
+                navigate('/user');
+            }
+            else {
+                setOpen(true)
+            }
+        }
+    
+        const {theme} = useTheme();
+        const classes = useStyles();
+
+  return (     
+      <div>
+     <AccountCircleIcon onClick={handleAccountClick} style={{marginRight:'0.5rem'}} />
+
+      { user && <LogoutIcon onClick={logout} />}
+      <Modal
                 open={open}
                 onClose={handleClose}
                 className={classes.modal}
@@ -57,24 +132,41 @@ const AccountIcon = () => {
                 <div className={classes.box}>
                     <AppBar
                         position="static"
-                        style={{ backgroundColor: "transparent", color: "white" }}
+                        style={{ backgroundColor: "transparent"}}
                     >
                         <Tabs
                             value={value}
                             onChange={handleChange}
                             variant="fullWidth">
-                            <Tab label='login'></Tab>
-                            <Tab label='signup'></Tab>
-                        </Tabs>
+                           <Tab label='login' ></Tab>
+                           <Tab label='signup'></Tab>
+                           
+                            
+                            </Tabs>
+
+
                     </AppBar>
                     {value === 0 && <LoginForm handleClose={handleClose}></LoginForm>}
                     {value === 1 && <SignUpForm handleClose={handleClose} />}
+                     
+                     <Box className={classes.box}>
+                        <span>OR</span>
+                        <GoogleButton
+                        style={{width:'100%'}}
+                        onClick = {signInWithGoogle}/>
+                    </Box>  
+
                 </div>
 
             </Modal>
+            </div>
+      
+    
 
-        </div>
-    )
+
+
+      
+  )
 }
 
 export default AccountIcon
