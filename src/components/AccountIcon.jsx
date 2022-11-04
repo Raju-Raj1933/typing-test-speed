@@ -5,10 +5,11 @@ import { AppBar, Modal, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
-import { Box, makeStyles, useTheme } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import { auth } from '../firebaseConfig';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import {useTheme} from '../Context/ThemeContext';
 import GoogleButton from 'react-google-button';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useAlert } from '../Context/AlertContext';
@@ -120,8 +121,7 @@ function AccountIcon() {
 
   return (     
       <div>
-     <AccountCircleIcon onClick={handleAccountClick} style={{marginRight:'0.5rem'}} />
-
+        <AccountCircleIcon onClick={handleAccountClick} style={{marginTop:'20px', marginRight:'0.5rem'}} />
       { user && <LogoutIcon onClick={logout} />}
       <Modal
                 open={open}

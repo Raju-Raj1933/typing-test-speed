@@ -1,13 +1,23 @@
 import { Modal } from '@mui/material'
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import AccountIcon from './AccountIcon'
 
 const Header = () => {
 
-
+  const navigate = useNavigate();
 
   return (
     <div className='header'>
+            <Link to='/'>
+            <div className="logo" style={{cursor:'pointer', fontSize:'2rem'}}>
+          
+        </div>
+        </Link>
+
+        
+
+
         <div className="logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-keyboard" viewBox="0 0 16 16">
   <path d="M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z"/>

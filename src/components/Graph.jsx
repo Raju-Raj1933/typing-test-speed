@@ -47,3 +47,6 @@ const Graph = ({graphData, type}) => {
 }
 
 export default Graph
+
+
+

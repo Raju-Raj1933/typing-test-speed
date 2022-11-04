@@ -201,8 +201,8 @@ body{
 }
 
 .user-profile{
-    width:1000px;
-    margin:auto;
+    // width:1000px;
+    // margin:auto;
     display:flex;
     min-height:15rem;
     background:  ${ ({theme})=> theme.typeBoxText };
@@ -220,6 +220,10 @@ body{
 .result-graph, .table{
     width:1000px;
     margin:auto;
+}
+.total-times{
+    width:50%;
+    padding:3rem;
 }
 .picture{
     position:relative;

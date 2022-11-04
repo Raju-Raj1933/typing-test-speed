@@ -1,9 +1,9 @@
-const darkTheme = {
-    label:"Dark",
-    background:"red",
-    title:"white",
-    typeBoxText:"red",
-    stats:"purple"
+const PinkBrownTheme = {
+    label:"PinkBrown",
+    background:"hot-pink",
+    title:"brown",
+    typeBoxText:"pink",
+    stats:"red"
 
   }
   
@@ -34,15 +34,35 @@ const futureFunkTheme = {
   stats: "#fff"
 }
 
+const mixThewme ={
+  label: "mixed",
+  background: "#9e828e",
+  title: "yellow",
+  typeBoxText: "blue",
+  stats: "red"
+}
+
+const transparent ={
+  label:"#cool-color",
+  background:"#00FFFF",
+  title:"#8B8000",
+  typeBoxText:"black",
+  stats:"red"
+}
+
 
 
   
   export const themeOptions = [
-      {value: darkTheme, label:"Dark"},
+      {value: PinkBrownTheme, label:"PinkBrown"},
       {value: lightTheme, label: "Light"},
       {value: redTheme, label:"Red Theme"},
       {value: bentoTheme, label: "Bento"},
-      {value: futureFunkTheme, label: "Future Funk"}
+      {value: futureFunkTheme, label: "Future Funk"},
+      {value: mixThewme, label: "mix"},
+      {value: transparent, label: "cool-color"}
+
+
 
   
   ];

@@ -1,7 +1,7 @@
 import { CircularProgress, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
-// import Graph from '../Components/Graph';
+import Graph from '../components/Graph';
 import { useTheme } from '../Context/ThemeContext';
 import { auth, db } from '../firebaseConfig';
 
@@ -10,11 +10,16 @@ const UserPage = () => {
   const [data, setData] = useState([]);
   const [graphData, setGraphData] = useState([]);
   const [user, loading] = useAuthState(auth);
+  const [dataLoading, setDataLoading] = useState(true);
   const {theme} = useTheme();
+  const [joinedAt, setJoinedAt] = useState();
   const fetchUserData = () => {
 
     if (!loading) {
       console.log(user);
+      setJoinedAt(new Date(user.metadata.creationTime).toISOString().split('T')[0]);
+      console.log(new Date(user.metadata.creationTime).toISOString());
+      console.log("sdsd",joinedAt);
       const { uid } = auth.currentUser;
       const resultRef = db.collection('results');
       let tempData = [];
@@ -26,6 +31,7 @@ const UserPage = () => {
         });
         setData(tempData);
         setGraphData(tempGraphData);
+        setDataLoading(false);
       });
     }
 
@@ -44,13 +50,9 @@ const UserPage = () => {
     <>
 
     <div className="result-graph">
-
-
-      {/* <Graph graphData={graphData} type='date'/> */}
+      <Graph graphData={graphData} type='date'/>
 
     </div>
-
-
 
     <div className='table'>
       <TableContainer style={{maxHeight:'30rem'}}>
@@ -113,3 +115,7 @@ const UserPage = () => {
 }
 
 export default UserPage
+
+
+
+
