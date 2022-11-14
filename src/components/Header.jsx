@@ -11,9 +11,10 @@ const Header = () => {
     <div className='header'>
             <Link to='/'>
             <div className="logo" style={{cursor:'pointer', fontSize:'2rem'}}>
-          
+          Typo
         </div>
         </Link>
+
 
         
 

@@ -22,6 +22,7 @@ const TypingBox = () => {
     const [correctWords, setCorrectWords] = useState(0);
     const [graphData, setGraphData] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
+    const wordWrapperRef = useRef();
     const [wordsArray, setWordsArray] = useState(()=>{
 
         if(gameMode==='words'){
@@ -144,6 +145,19 @@ const TypingBox = () => {
     }
     const calculateAccuracy = ()=>{
         return Math.round((correctWords/currWordIndex)*100);
+    }
+    const handleInputFocus = ()=>{
+        console.log("input box no longer in focus");
+        wordWrapperRef.current.className+=' blur';
+        if(testStart){
+            clearInterval(intervalId);
+        }
+    }
+    const handleInputInFocus =()=>{
+        wordWrapperRef.current.className = wordWrapperRef.current.className.replace('blur' , '');
+        if(testStart){
+            startTimer();
+        }
     }
     const handleKeyDown = (e) =>{
       if(e.keyCode===9){
@@ -281,6 +295,7 @@ const TypingBox = () => {
             <UpperMenu countDown={countDown}/>
 
           {!testOver ? (<div className="type-box" onClick={focusInput}>
+            <div className="words" ref={wordWrapperRef}> 
               <div className="words">
                   {words.map((word, index) => (
                       <span className="word" ref={wordSpanRef[index]}>
@@ -291,6 +306,7 @@ const TypingBox = () => {
                           ))}
                       </span>
                   ))}
+              </div>
               </div>
           </div>) : (<Stats 
                         wpm={calculateWPM()} 
@@ -307,6 +323,8 @@ const TypingBox = () => {
             type='text'
             className='hidden-input'
             ref={textInputRef}
+            onBlur={handleInputFocus}
+            onFocus={handleInputInFocus}  //add
             onKeyDown={(e)=> handleKeyDown(e)}
             onKeyUp={(e)=> handleKeyUp(e)}
             />
@@ -338,6 +356,7 @@ const TypingBox = () => {
             </DialogTitle>
 
         </Dialog>
+        
 
     </div>
   )
